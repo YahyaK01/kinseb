@@ -1,0 +1,354 @@
+// components/CaseStudyHero.jsx
+import React, { useState, useEffect, useRef } from 'react';
+
+const CaseStudyHero = ({ slug }) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const heroRef = useRef(null);
+
+  const heroData = {
+    'personalization-engine-transforms-user-experience': {
+      category: 'Case Study',
+      title: 'PERSONALIZATION ENGINE TRANSFORMS USER EXPERIENCE',
+      titleHighlight: '37% CONVERSION RATE',
+      subtitle: 'See how our data-driven, psychology-powered CRO process transformed user behavior and business performance.',
+      metrics: [
+        { value: '+37%', label: 'CVR Increase', icon: 'images/icons/chart-icon.png' },
+        { value: '+156%', label: 'Revenue Growth', icon: 'images/icons/chart-icon.png' },
+        { value: '2.3x', label: 'User Engagement', icon: 'images/icons/chart-icon.png' }
+      ]
+    },
+    'e-commerce-revenue-uplift-through-testing': {
+      category: 'Case Study',
+      title: 'URBANCART E-COMMERCE',
+      titleHighlight: '28% REVENUE UPLIFT',
+      subtitle: 'See how our data-driven, psychology-powered CRO process transformed user behavior and business performance.',
+      metrics: [
+        { value: '+37%', label: 'CVR Increase', icon: 'images/icons/chart-icon.png' },
+        { value: '+37%', label: 'CVR Increase', icon: 'images/icons/chart-icon.png' },
+        { value: '+37%', label: 'CVR Increase', icon: 'images/icons/chart-icon.png' }
+      ]
+    },
+    'saas-lead-generation-conversion-breakthrough': {
+      category: 'Case Study',
+      title: 'SAAS LEAD GENERATION',
+      titleHighlight: '3X CONVERSION BREAKTHROUGH',
+      subtitle: 'See how our data-driven, psychology-powered CRO process transformed user behavior and business performance.',
+      metrics: [
+        { value: '3x', label: 'Lead Generation', icon: 'images/icons/chart-icon.png' },
+        { value: '+214%', label: 'Form Conversion', icon: 'images/icons/chart-icon.png' },
+        { value: '-47%', label: 'Cost Per Lead', icon: 'images/icons/chart-icon.png' }
+      ]
+    },
+    'fashion-retailer-cart-abandonment-solution': {
+      category: 'Case Study',
+      title: 'FASHION RETAILER',
+      titleHighlight: 'CART ABANDONMENT SOLUTION',
+      subtitle: 'See how our data-driven, psychology-powered CRO process transformed user behavior and business performance.',
+      metrics: [
+        { value: '-68%', label: 'Cart Abandonment', icon: 'images/icons/chart-icon.png' },
+        { value: '+42%', label: 'Checkout Completion', icon: 'images/icons/chart-icon.png' },
+        { value: '$2.3M', label: 'Revenue Recovered', icon: 'images/icons/chart-icon.png' }
+      ]
+    },
+    'mobile-app-engagement-revolution': {
+      category: 'Case Study',
+      title: 'MOBILE APP',
+      titleHighlight: 'ENGAGEMENT REVOLUTION',
+      subtitle: 'See how our data-driven, psychology-powered CRO process transformed user behavior and business performance.',
+      metrics: [
+        { value: '2.3x', label: 'User Retention', icon: 'images/icons/chart-icon.png' },
+        { value: '+128%', label: '30-Day Retention', icon: 'images/icons/chart-icon.png' },
+        { value: '+141%', label: 'Daily Active Users', icon: 'images/icons/chart-icon.png' }
+      ]
+    },
+    'enterprise-pipeline-growth-strategy': {
+      category: 'Case Study',
+      title: 'ENTERPRISE PIPELINE',
+      titleHighlight: '+179% GROWTH STRATEGY',
+      subtitle: 'See how our data-driven, psychology-powered CRO process transformed user behavior and business performance.',
+      metrics: [
+        { value: '+179%', label: 'Pipeline Growth', icon: 'images/icons/chart-icon.png' },
+        { value: '-25%', label: 'Sales Cycle Length', icon: 'images/icons/chart-icon.png' },
+        { value: '+35%', label: 'Close Rate', icon: 'images/icons/chart-icon.png' }
+      ]
+    }
+  };
+
+  const data = heroData[slug] || heroData['e-commerce-revenue-uplift-through-testing'];
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsLoaded(true);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
+
+    return () => {
+      if (heroRef.current) {
+        observer.unobserve(heroRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div 
+      ref={heroRef}
+      style={{
+        width: '100%',
+        minHeight: windowWidth <= 768 ? '600px' : '616px',
+        background: 'linear-gradient(180deg, #04091D 16.18%, #0D98BA 219.08%)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: windowWidth <= 768 ? '60px 20px' : '80px 40px',
+        position: 'relative',
+        overflow: 'hidden'
+      }}
+    >
+      {/* Main Content Container */}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '0px',
+        gap: '23px',
+        width: '100%',
+        maxWidth: '954px',
+        opacity: isLoaded ? 1 : 0,
+        transform: isLoaded ? 'translateY(0)' : 'translateY(30px)',
+        transition: 'opacity 0.8s ease-out, transform 0.8s ease-out'
+      }}>
+        {/* Case Study Badge */}
+        <div style={{
+          boxSizing: 'border-box',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '10px 24px',
+          width: windowWidth <= 768 ? '180px' : '215px',
+          height: '48px',
+          background: 'linear-gradient(90deg, #FFFFFF 0%, #85CCDD 52.41%, #0D98BA 81.55%, #0B829F 95.26%)',
+          border: '1px solid #0D94BB',
+          boxShadow: '0px 0px 12px 2px rgba(13, 148, 187, 0.7)',
+          borderRadius: '25px',
+          cursor: 'default',
+          opacity: isLoaded ? 1 : 0,
+          transition: 'opacity 0.8s ease-out 0.2s'
+        }}>
+          <span style={{
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 700,
+            fontSize: '16px',
+            lineHeight: '24px',
+            letterSpacing: '0.02em',
+            color: '#04091D'
+          }}>
+            {data.category}
+          </span>
+        </div>
+
+        {/* Main Title - Two Lines Only */}
+        <h1 style={{
+          width: '100%',
+          fontFamily: "'Poppins', sans-serif",
+          fontWeight: 600,
+          fontSize: windowWidth <= 768 ? '32px' : windowWidth <= 1024 ? '50px' : '70px',
+          lineHeight: windowWidth <= 768 ? '40px' : windowWidth <= 1024 ? '60px' : '80px',
+          textAlign: 'center',
+          textTransform: 'uppercase',
+          color: '#FFFFFF',
+          textShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+          margin: 0,
+          opacity: isLoaded ? 1 : 0,
+          transition: 'opacity 0.8s ease-out 0.3s'
+        }}>
+          {data.title}
+          <br />
+          <span style={{
+            background: 'linear-gradient(263.69deg, #FFFFFF -108.11%, #3AA1DE 98.19%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text'
+          }}>
+            {data.titleHighlight}
+          </span>
+        </h1>
+
+        {/* Subtitle */}
+        <p style={{
+          width: '100%',
+          maxWidth: '862px',
+          fontFamily: "'Lato', sans-serif",
+          fontWeight: 600,
+          fontSize: windowWidth <= 768 ? '14px' : '16px',
+          lineHeight: '22px',
+          textAlign: 'center',
+          color: '#FFFFFF',
+          margin: 0,
+          opacity: isLoaded ? 1 : 0,
+          transition: 'opacity 0.8s ease-out 0.4s'
+        }}>
+          {data.subtitle}
+        </p>
+
+        {/* Divider Line */}
+        <div style={{
+          width: windowWidth <= 768 ? '80%' : '654px',
+          height: '1px',
+          background: '#0D98BA',
+          borderRadius: '10px',
+          opacity: isLoaded ? 1 : 0,
+          transition: 'opacity 0.8s ease-out 0.5s'
+        }} />
+
+        {/* Metrics Cards */}
+        <div style={{
+          display: 'flex',
+          flexDirection: windowWidth <= 768 ? 'column' : 'row',
+          alignItems: windowWidth <= 768 ? 'center' : 'flex-start',
+          padding: '0px',
+          gap: '23px',
+          width: '100%',
+          maxWidth: windowWidth <= 768 ? '320px' : '796px',
+          justifyContent: 'center'
+        }}>
+          {data.metrics.map((metric, index) => (
+            <div 
+              key={index}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '15px 20px',
+                gap: '10px',
+                width: windowWidth <= 768 ? '100%' : '250px',
+                maxWidth: '250px',
+                minHeight: '54px',
+                background: 'rgba(4, 9, 29, 0.4)',
+                boxShadow: '0px 0px 12px 2px rgba(13, 148, 187, 0.7)',
+                borderRadius: '10px',
+                opacity: isLoaded ? 1 : 0,
+                transform: isLoaded ? 'translateY(0)' : 'translateY(20px)',
+                transition: `opacity 0.8s ease-out ${0.6 + index * 0.1}s, transform 0.8s ease-out ${0.6 + index * 0.1}s`
+              }}
+            >
+              {/* Icon and Value Row */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '0px',
+                gap: '10px'
+              }}>
+                <img 
+                  src={metric.icon}
+                  alt="Chart Icon"
+                  style={{
+                    width: '20px',
+                    height: '20px'
+                  }}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+                <span style={{
+                  fontFamily: "'Poppins', sans-serif",
+                  fontWeight: 700,
+                  fontSize: '19px',
+                  lineHeight: '28px',
+                  letterSpacing: '0.02em',
+                  background: 'linear-gradient(263.69deg, #FFFFFF -108.11%, #3AA1DE 98.19%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}>
+                  {metric.value}
+                </span>
+              </div>
+
+              {/* Label */}
+              <span style={{
+                fontFamily: "'Poppins', sans-serif",
+                fontWeight: 400,
+                fontSize: '16px',
+                lineHeight: '24px',
+                textAlign: 'center',
+                letterSpacing: '0.02em',
+                color: '#FFFFFF'
+              }}>
+                {metric.label}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Get Free Audit Button */}
+        <button
+          onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '10px 24px',
+            gap: '10px',
+            width: windowWidth <= 768 ? '180px' : '200px',
+            height: '48px',
+            background: '#0D98BA',
+            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+            borderRadius: '6px',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            opacity: isLoaded ? 1 : 0,
+            transform: isLoaded ? 'translateY(0)' : 'translateY(20px)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#0B7A94';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0px 6px 8px rgba(0, 0, 0, 0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = '#0D98BA';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0px 4px 4px rgba(0, 0, 0, 0.25)';
+          }}
+        >
+          <span style={{
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 500,
+            fontSize: '16px',
+            lineHeight: '24px',
+            letterSpacing: '0.02em',
+            color: '#000000'
+          }}>
+            Get Free Audit
+          </span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default CaseStudyHero;
